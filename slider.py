@@ -64,8 +64,10 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()  # Acknowledge button press
 
     duration = query.data
-    key = generate_key()
-    final_key = f"{key}_{duration}"
+    # Generate 11 random characters AFTER duration
+    chars = string.ascii_letters + string.digits
+    random_part = ''.join(random.choice(chars) for _ in range(11))
+    final_key = f"Slider_{duration}{random_part}"
 
     await query.edit_message_text(
         text=f"🔑 Your Generated Key:\n`{final_key}`",
